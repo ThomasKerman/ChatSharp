@@ -19,9 +19,7 @@ namespace ChatSharp
         /// </summary>
         public void SendMessage(string message, params string[] destinations)
         {
-            const string illegalCharacters = "\r\n\0";
             if (destinations == null || !destinations.Any()) throw new InvalidOperationException("Message must have at least one target.");
-            if (illegalCharacters.Any(message.Contains)) message = message.Replace('\r', ' ').Replace('\n', ' ').Replace('\0', ' ');
             string to = string.Join(",", destinations);
             SendRawMessage("PRIVMSG {0} :{1}{2}", to, PrivmsgPrefix, message);
         }
@@ -31,9 +29,7 @@ namespace ChatSharp
         /// </summary>
         public void SendAction(string message, params string[] destinations)
         {
-            const string illegalCharacters = "\r\n\0";
             if (destinations == null || !destinations.Any()) throw new InvalidOperationException("Message must have at least one target.");
-            if (illegalCharacters.Any(message.Contains)) message = message.Replace('\r', ' ').Replace('\n', ' ').Replace('\0', ' ');
             string to = string.Join(",", destinations);
             SendRawMessage("PRIVMSG {0} :\x0001ACTION {1}{2}\x0001", to, PrivmsgPrefix, message);
         }
@@ -43,9 +39,7 @@ namespace ChatSharp
         /// </summary>
         public void SendNotice(string message, params string[] destinations)
         {
-            const string illegalCharacters = "\r\n\0";
             if (destinations == null || !destinations.Any()) throw new InvalidOperationException("Message must have at least one target.");
-            if (illegalCharacters.Any(message.Contains)) message = message.Replace('\r', ' ').Replace('\n', ' ').Replace('\0', ' ');
             string to = string.Join(",", destinations);
             SendRawMessage("NOTICE {0} :{1}{2}", to, PrivmsgPrefix, message);
         }
