@@ -76,6 +76,13 @@ namespace ChatSharp
             SendRawMessage("JOIN {0}", channel);
         }
 
+        public void JoinChannel(string channel, string password)
+        {
+            if (Channels.Contains(channel))
+                throw new InvalidOperationException("Client is not already present in channel.");
+            SendRawMessage("JOIN {0} {1}", channel, password);
+        }
+
         /// <summary>
         /// Sets the topic for the specified channel.
         /// </summary>
