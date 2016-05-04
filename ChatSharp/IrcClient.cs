@@ -175,8 +175,10 @@ namespace ChatSharp
                 string nextMessage;
                 if (WriteQueue.Count > 0)
                 {
-                    while (!WriteQueue.TryDequeue(out nextMessage));
-                    SendRawMessage(nextMessage);
+                    while (!WriteQueue.TryDequeue(out nextMessage)) ;
+                    var data = Encoding.GetBytes(nextMessage + "\r\n");
+                    IsWriting = true;
+                    NetworkStream.BeginWrite(data, 0, data.Length, MessageSent, nextMessage);
                 }
             };
             checkQueue.Start();
@@ -351,8 +353,10 @@ namespace ChatSharp
             string nextMessage;
             if (WriteQueue.Count > 0)
             {
-                while (!WriteQueue.TryDequeue(out nextMessage));
-                SendRawMessage(nextMessage);
+                while (!WriteQueue.TryDequeue(out nextMessage)) ;
+                var data = Encoding.GetBytes(nextMessage + "\r\n");
+                IsWriting = true;
+                NetworkStream.BeginWrite(data, 0, data.Length, MessageSent, nextMessage);
             }
         }
 
