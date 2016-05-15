@@ -165,6 +165,8 @@ namespace ChatSharp
         /// </summary>
         public bool Equals(IrcUser other)
         {
+            if (other == null)
+                return false;
             return other.Hostmask == Hostmask;
         }
 
